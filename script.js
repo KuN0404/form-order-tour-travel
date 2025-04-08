@@ -53,6 +53,7 @@ flatpickr('#jam_penjemputan', {
 const tujuanSelect = document.getElementById('tujuan');
 const tujuanLainnyaInput = document.getElementById('tujuan_lainnya');
 const tujuanLainnyaContainer = document.getElementById('tujuan_lainnya_container');
+const mobilSelect = document.getElementById('mobil');
 
 tujuanSelect.addEventListener('change', () => {
   if (tujuanSelect.value === 'Lainnya') {
@@ -89,6 +90,41 @@ form.addEventListener('submit', async (e) => {
 
   try {
     const formData = new FormData(form);
+
+    const tgl = document.getElementById('tgl_keberangkatan').value.trim();
+    const jam = document.getElementById('jam_penjemputan').value.trim();
+    const tujuan = tujuanSelect.value;
+    const tujuanLainnyaVal = tujuanLainnyaInput.value.trim();
+    const mobil = mobilSelect.value;
+
+    // Validasi field wajib
+    if (!tgl) {
+      await Swal.fire('Tanggal Kosong', 'Mohon pilih tanggal keberangkatan.', 'warning');
+      return;
+    }
+
+    if (!jam) {
+      await Swal.fire('Jam Kosong', 'Mohon isi jam penjemputan.', 'warning');
+      return;
+    }
+
+    if (!tujuan) {
+      await Swal.fire('Tujuan Kosong', 'Mohon pilih tujuan.', 'warning');
+      return;
+    }
+
+    if (tujuan === 'Lainnya' && !tujuanLainnyaVal) {
+      await Swal.fire('Tujuan Lainnya Kosong', 'Mohon isi tujuan secara manual.', 'warning');
+      return;
+    }
+
+    if (!mobil) {
+      await Swal.fire('Mobil tidak dipilih', 'Mohon pilih mobil.', 'warning');
+      return;
+    }
+
+    const noHp = formData.get('no_hp');
+    formData.set('no_hp', `'${noHp}`);
 
     // Tangani input tujuan lainnya
     if (tujuanSelect.value === 'Lainnya') {

@@ -63,26 +63,6 @@
 
             <div class="col-md-6">
               <div class="form-floating">
-                <input type="text" class="form-control" id="lama_sewa" name="lama_sewa" placeholder="Lama Sewa" required />
-                <label for="lama_sewa">Lama Sewa</label>
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <div class="form-floating">
-                <input type="text" class="form-control" id="dp" name="dp" placeholder="DP" required />
-                <label for="dp">DP</label>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-floating">
-                <input type="text" class="form-control" id="sisa" name="jml_sisa" placeholder="Sisa" required />
-                <label for="sisa">Sisa</label>
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <div class="form-floating">
                 <select class="form-select" id="tujuan" name="tujuan" required>
                   <option value="" disabled selected>-- Pilih Tujuan --</option>
                   <option value="Pantai">Pantai</option>
@@ -105,13 +85,33 @@
             <div class="col-md-6">
               <div class="form-floating">
                 <select class="form-select" id="mobil" name="mobil" required>
-                  <option selected disabled>-- Pilih Mobil --</option>
+                  <option value="" selected disabled>-- Pilih Mobil --</option>
                   <option value="Haice 14s">Haice 14s</option>
                   <option value="Medium Bus 35s">Medium Bus 35s</option>
                   <option value="Big Bus 50s">Big Bus 50s</option>
                   <option value="Big Bus 60s">Big Bus 60s</option>
                 </select>
                 <label for="mobil">Mobil</label>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="lama_sewa" name="lama_sewa" placeholder="Lama Sewa" required />
+                <label for="lama_sewa">Lama Sewa</label>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="dp" name="dp" placeholder="DP" required />
+                <label for="dp">DP</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="sisa" name="jml_sisa" placeholder="Sisa" required />
+                <label for="sisa">Sisa</label>
               </div>
             </div>
 
@@ -132,6 +132,22 @@
                 <textarea class="form-control" id="catatan" name="catatan" style="height: 100px" required></textarea>
                 <label for="catatan">Catatan</label>
               </div>
+            </div>
+
+            <div class="alert alert-info mt-3" role="alert">
+              <strong>📢 Pemberitahuan:</strong>
+              <ul class="mb-2 mt-2">
+                <li>Harap periksa kembali data yang Anda isi sebelum menekan tombol Kirim Form.</li>
+                <li>Jika tidak ada catatan, kolom catatan diisi dengan -.</li>
+                <li>Uang muka (DP) minimal <strong>25%</strong> dari nilai kontrak.</li>
+                <li>Pembatalan perjalanan (cancel) akan dikenakan potongan sebesar <strong>25%</strong> dari nilai kontrak.</li>
+                <li>Pergantian tanggal keberangkatan harus dikonfirmasi <strong>minimal 1 minggu sebelum keberangkatan</strong>.</li>
+              </ul>
+              <p class="mb-0">
+                <strong>Rekening Pembayaran:</strong><br />
+                - BCA : <em>(isi nomor rekening)</em><br />
+                - BNI : <em>(isi nomor rekening)</em>
+              </p>
             </div>
 
             <div class="col-12 d-grid mt-4">
