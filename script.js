@@ -141,7 +141,7 @@ form.addEventListener('submit', async (e) => {
     }
 
     const data = new URLSearchParams(formData);
-    const response = await fetch('https://script.google.com/macros/s/AKfycbwMYDFbqlqHOBZm1PBBcZYOe-F3Mpk5uadoHMbRAthYeNzElPENfmqtJ8LTuZcKTaRM/exec', {
+    const response = await fetch('https://script.google.com/macros/s/AKfycbwuL9zEGSM_vT-co0cn84lSUK6XPPgLXeRVaetPOl-tUMxKJ3_aFGvHsBgxMni-bORG/exec', {
       method: 'POST',
       body: data,
     });
