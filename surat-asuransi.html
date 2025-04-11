@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Surat Persetujuan Asuransi</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" />
+    <style>
+      body {
+        padding: 40px;
+        font-family: 'Times New Roman', serif;
+      }
+      .kop {
+        text-align: center;
+        border-bottom: 2px solid black;
+        margin-bottom: 30px;
+        padding-bottom: 10px;
+      }
+      .kop h5 {
+        margin: 0;
+        font-weight: bold;
+      }
+      .kop p {
+        margin: 0;
+        font-size: 14px;
+      }
+      .signature {
+        margin-top: 50px;
+        text-align: right;
+      }
+      .btn-print {
+        margin-top: 30px;
+      }
+      @media print {
+        .btn-print {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="kop">
+      <h5>PT. NINGRAT TRANS TOUR & TRAVEL</h5>
+      <p>Jl. Contoh No. 123, Yogyakarta | Telp. (0274) 123456 | Email: info@ningrattravel.com</p>
+    </div>
+
+    <h6 class="text-center mb-4"><u>SURAT PERSETUJUAN ASURANSI PERJALANAN</u></h6>
+
+    <p>Saya yang bertanda tangan di bawah ini:</p>
+
+    <ul>
+      <li><strong>Nama:</strong> <span id="nama"></span></li>
+      <li><strong>ID Order:</strong> <span id="id_order"></span></li>
+    </ul>
+
+    <p>Menyatakan <strong>setuju</strong> untuk mengikuti program <strong>asuransi perjalanan</strong> yang disediakan oleh PT. Ningrat Trans Tour & Travel sesuai dengan ketentuan yang berlaku.</p>
+
+    <div class="signature">
+      <p>Yogyakarta, <span id="tanggal_surat"></span></p>
+      <p>
+        <strong><span id="ttd_nama"></span></strong>
+      </p>
+      <br /><br />
+      <p>_________________________</p>
+    </div>
+
+    <div class="text-center btn-print">
+      <button onclick="window.print()" class="btn btn-primary">🖨️ Cetak / Download PDF</button>
+    </div>
+
+    <script>
+      function getParam(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name) || '-';
+      }
+
+      const nama = getParam('nama');
+      const idOrder = getParam('id_order');
+      const today = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      document.getElementById('nama').textContent = nama;
+      document.getElementById('id_order').textContent = idOrder;
+      document.getElementById('tanggal_surat').textContent = today;
+      document.getElementById('ttd_nama').textContent = nama;
+    </script>
+  </body>
+</html>
