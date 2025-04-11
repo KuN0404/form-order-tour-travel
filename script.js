@@ -1,13 +1,8 @@
 const form = document.getElementById('contactForm');
 const submitButton = document.getElementById('submitButton');
 
-// Format angka ke format "1.000.000"
 function formatRupiah(angka) {
   return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-}
-
-function parseRupiah(rp) {
-  return parseInt(rp.replace(/\./g, '')) || 0;
 }
 
 function setupRupiahInput(id) {
@@ -82,7 +77,6 @@ form.addEventListener('submit', async (e) => {
   submitButton.disabled = true;
   submitButton.textContent = 'Mengirim...';
 
-  // Parse angka mentah dulu
   uangInputs.forEach((id) => {
     const el = document.getElementById(id);
     el.value = parseRupiah(el.value);
@@ -97,7 +91,6 @@ form.addEventListener('submit', async (e) => {
     const tujuanLainnyaVal = tujuanLainnyaInput.value.trim();
     const mobil = mobilSelect.value;
 
-    // Validasi field wajib
     if (!tgl) {
       await Swal.fire('Tanggal Kosong', 'Mohon pilih tanggal keberangkatan.', 'warning');
       return;
@@ -126,15 +119,13 @@ form.addEventListener('submit', async (e) => {
     const noHp = formData.get('no_hp');
     formData.set('no_hp', `'${noHp}`);
 
-    // Tangani input tujuan lainnya
     if (tujuanSelect.value === 'Lainnya') {
       const inputLainnya = tujuanLainnyaInput.value.trim();
       if (inputLainnya) {
-        formData.set('tujuan', inputLainnya); // Timpa langsung isi tujuan
+        formData.set('tujuan', inputLainnya);
       }
     }
 
-    // Pastikan radio asuransi ikut dikirim
     const isAsuransi = form.querySelector('input[name="is_asuransi"]:checked');
     if (isAsuransi) {
       formData.set('is_asuransi', isAsuransi.value);
@@ -156,7 +147,7 @@ form.addEventListener('submit', async (e) => {
         confirmButtonText: 'OK',
       });
       form.reset();
-      tujuanLainnyaContainer.classList.add('d-none'); // Sembunyikan kembali jika sebelumnya dibuka
+      tujuanLainnyaContainer.classList.add('d-none');
     } else {
       throw new Error(result.error);
     }
