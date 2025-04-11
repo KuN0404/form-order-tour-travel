@@ -5,6 +5,10 @@ function formatRupiah(angka) {
   return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 
+function parseRupiah(rp) {
+  return parseInt(rp.replace(/\./g, '')) || 0;
+}
+
 function setupRupiahInput(id) {
   const input = document.getElementById(id);
   input.addEventListener('input', () => {
@@ -76,11 +80,6 @@ form.addEventListener('submit', async (e) => {
 
   submitButton.disabled = true;
   submitButton.textContent = 'Mengirim...';
-
-  uangInputs.forEach((id) => {
-    const el = document.getElementById(id);
-    el.value = parseRupiah(el.value);
-  });
 
   try {
     const formData = new FormData(form);
