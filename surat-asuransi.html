@@ -8,22 +8,8 @@
     <style>
       body {
         font-family: 'Times New Roman', serif;
-        padding: 40px;
       }
-      .kop {
-        text-align: center;
-        border-bottom: 2px solid black;
-        margin-bottom: 30px;
-        padding-bottom: 10px;
-      }
-      .kop h5 {
-        margin: 0;
-        font-weight: bold;
-      }
-      .kop p {
-        margin: 0;
-        font-size: 14px;
-      }
+
       .btn-print {
         margin-top: 30px;
       }
@@ -34,10 +20,22 @@
       }
     </style>
   </head>
-  <body>
-    <div class="kop">
-      <h5>PT. NINGRAT TRANS TOUR & TRAVEL</h5>
-      <p>Jl. Contoh No. 123, Yogyakarta | Telp. (0274) 123456 | Email: info@ningrattravel.com</p>
+  <body class="px-5 py-2">
+    <div class="row align-items-center border-bottom border-1 border-black pb-3 mb-4">
+      <!-- Logo -->
+      <div class="col-2 text-start">
+        <img src="kop.png" alt="Logo" class="img-fluid" style="max-height: 50px" />
+      </div>
+
+      <!-- Spacer agar teks benar-benar di tengah
+      <div class="col-2"></div> -->
+
+      <!-- Teks Kop -->
+      <div class="col-8 text-center">
+        <h5 class="mb-1 fw-bold">NINGRAT TRANS</h5>
+        <p class="mb-0">Jl. Kapten Mustofa, Tj. Aman, Kec. Kotabumi Sel., Kabupaten Lampung Utara, Lampung</p>
+        <p class="mb-0">Telp. 0851-3618-5911 | Email: transningrat@gmail.com</p>
+      </div>
     </div>
 
     <h6 class="text-center mb-4"><u>SURAT PERNYATAAN PERSETUJUAN ASURANSI</u></h6>
@@ -69,7 +67,7 @@
     </ol>
 
     <div class="text-end mt-5">
-      <p>Yogyakarta, <span id="tanggal_ttd"></span></p>
+      <p>Kotabumi, <span id="tanggal_ttd"></span></p>
       <p>
         <strong><span id="ttd_nama"></span></strong>
       </p>
@@ -77,7 +75,7 @@
     </div>
 
     <div class="text-center btn-print">
-      <button class="btn btn-primary" onclick="window.print()">🖨️ Cetak / Download PDF</button>
+      <button class="btn btn-primary" onclick="window.print()">Cetak / Download PDF</button>
     </div>
 
     <script>
