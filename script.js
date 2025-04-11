@@ -150,7 +150,7 @@ form.addEventListener('submit', async (e) => {
 
       if (formData.get('is_asuransi') === 'Ya') {
         const id_order = result.id; // ID dari Google Spreadsheet
-        const nama = encodeURIComponent(formData.get('nama')); // Nama dari form input
+        const nama = encodeURIComponent(formData.get('penyewa')); // Nama dari form input
         const suratUrl = `https://kun0404.github.io/form-order-tour-travel/surat-asuransi.html?id_order=${id_order}&nama=${nama}`;
         window.open(suratUrl, '_blank');
       }

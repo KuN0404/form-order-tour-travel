@@ -4,11 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Surat Persetujuan Asuransi</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
       body {
-        padding: 40px;
         font-family: 'Times New Roman', serif;
+        padding: 40px;
       }
       .kop {
         text-align: center;
@@ -23,10 +23,6 @@
       .kop p {
         margin: 0;
         font-size: 14px;
-      }
-      .signature {
-        margin-top: 50px;
-        text-align: right;
       }
       .btn-print {
         margin-top: 30px;
@@ -44,28 +40,44 @@
       <p>Jl. Contoh No. 123, Yogyakarta | Telp. (0274) 123456 | Email: info@ningrattravel.com</p>
     </div>
 
-    <h6 class="text-center mb-4"><u>SURAT PERSETUJUAN ASURANSI PERJALANAN</u></h6>
+    <h6 class="text-center mb-4"><u>SURAT PERNYATAAN PERSETUJUAN ASURANSI</u></h6>
 
-    <p>Saya yang bertanda tangan di bawah ini:</p>
+    <p style="text-indent: 50px">Yang bertanda tangan di bawah ini:</p>
 
-    <ul>
-      <li><strong>Nama:</strong> <span id="nama"></span></li>
-      <li><strong>ID Order:</strong> <span id="id_order"></span></li>
-    </ul>
+    <table class="mb-3" style="margin-left: 50px">
+      <tr>
+        <td width="130"><strong>Nama</strong></td>
+        <td>: <span id="nama"></span></td>
+      </tr>
+      <tr>
+        <td><strong>ID Transaksi</strong></td>
+        <td>: <span id="id_order"></span></td>
+      </tr>
+      <tr>
+        <td><strong>Tanggal</strong></td>
+        <td>: <span id="tanggal_surat"></span></td>
+      </tr>
+    </table>
 
-    <p>Menyatakan <strong>setuju</strong> untuk mengikuti program <strong>asuransi perjalanan</strong> yang disediakan oleh PT. Ningrat Trans Tour & Travel sesuai dengan ketentuan yang berlaku.</p>
+    <p style="text-indent: 50px; margin-top: 20px">Dengan ini menyatakan <strong>setuju</strong> untuk menggunakan asuransi dalam layanan sewa kendaraan dengan ketentuan sebagai berikut:</p>
 
-    <div class="signature">
-      <p>Yogyakarta, <span id="tanggal_surat"></span></p>
+    <ol style="margin-left: 70px">
+      <li>Klaim asuransi hanya berlaku untuk kerusakan di luar kelalaian pengguna</li>
+      <li>Dikenakan biaya tambahan sebesar 5% dari total kontrak</li>
+      <li>Klaim harus dilaporkan maksimal 1x24 jam setelah kejadian</li>
+      <li>Surat pernyataan ini sah ketika telah ditandatangani</li>
+    </ol>
+
+    <div class="text-end mt-5">
+      <p>Yogyakarta, <span id="tanggal_ttd"></span></p>
       <p>
         <strong><span id="ttd_nama"></span></strong>
       </p>
-      <br /><br />
-      <p>_________________________</p>
+      <p style="margin-top: 60px">_________________________</p>
     </div>
 
     <div class="text-center btn-print">
-      <button onclick="window.print()" class="btn btn-primary">🖨️ Cetak / Download PDF</button>
+      <button class="btn btn-primary" onclick="window.print()">🖨️ Cetak / Download PDF</button>
     </div>
 
     <script>
@@ -74,13 +86,18 @@
         return urlParams.get(name) || '-';
       }
 
-      const nama = getParam('nama');
+      const nama = decodeURIComponent(getParam('nama'));
       const idOrder = getParam('id_order');
-      const today = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+      const tanggal = new Date().toLocaleDateString('id-ID', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      });
 
       document.getElementById('nama').textContent = nama;
       document.getElementById('id_order').textContent = idOrder;
-      document.getElementById('tanggal_surat').textContent = today;
+      document.getElementById('tanggal_surat').textContent = tanggal;
+      document.getElementById('tanggal_ttd').textContent = tanggal;
       document.getElementById('ttd_nama').textContent = nama;
     </script>
   </body>
