@@ -79,21 +79,29 @@ form.addEventListener('submit', async (e) => {
 
     if (!tgl) {
       await Swal.fire('Tanggal Kosong', 'Mohon pilih tanggal keberangkatan.', 'warning');
+      submitButton.disabled = false;
+      submitButton.textContent = 'Kirim Form';
       return;
     }
 
     if (!jam) {
       await Swal.fire('Jam Kosong', 'Mohon isi jam penjemputan.', 'warning');
+      submitButton.disabled = false;
+      submitButton.textContent = 'Kirim Form';
       return;
     }
 
     if (!tujuan) {
       await Swal.fire('Tujuan Kosong', 'Mohon pilih tujuan.', 'warning');
+      submitButton.disabled = false;
+      submitButton.textContent = 'Kirim Form';
       return;
     }
 
     if (!mobil) {
       await Swal.fire('Mobil tidak dipilih', 'Mohon pilih mobil.', 'warning');
+      submitButton.disabled = false;
+      submitButton.textContent = 'Kirim Form';
       return;
     }
 
@@ -104,9 +112,6 @@ form.addEventListener('submit', async (e) => {
     if (isAsuransi) {
       formData.set('is_asuransi', isAsuransi.value);
     }
-
-    // Tambahkan flag untuk menunjukkan bahwa SPK perlu dibuat
-    formData.append('generate_spk', 'true');
 
     const data = new URLSearchParams(formData);
     const response = await fetch('https://script.google.com/macros/s/AKfycbw5ULQrtZxvCkpSUa3wOH9Hsy7ULWqimBGtPnys04Rr7jPX2ny_I6B1KVv6Egh80YgV/exec', {
@@ -123,22 +128,24 @@ form.addEventListener('submit', async (e) => {
         text: '✅ Data berhasil dikirim.',
         confirmButtonText: 'OK',
       });
-      form.reset();
 
-      // Buka SPK dalam tab baru jika ada
+      // Buka SPK dalam tab baru
       if (result.spkUrl) {
         window.open(result.spkUrl, '_blank');
       }
 
+      // Reset form
+      form.reset();
+
       // Tetap buka surat asuransi jika dipilih
-      if (formData.get('is_asuransi') === 'Ya') {
+      if (isAsuransi && isAsuransi.value === 'Ya') {
         const id_order = result.id;
         const nama = encodeURIComponent(formData.get('penyewa'));
         const suratUrl = `https://kun0404.github.io/form-order-tour-travel/surat-asuransi.html?id_order=${id_order}&nama=${nama}`;
         window.open(suratUrl, '_blank');
       }
     } else {
-      throw new Error(result.error);
+      throw new Error(result.error || 'Terjadi kesalahan saat mengirim data');
     }
   } catch (error) {
     console.error(error);
@@ -150,10 +157,8 @@ form.addEventListener('submit', async (e) => {
     });
   }
 
-  setTimeout(() => {
-    submitButton.disabled = false;
-    submitButton.textContent = 'Kirim Form';
-  }, 3000);
+  submitButton.disabled = false;
+  submitButton.textContent = 'Kirim Form';
 });
 
 // const form = document.getElementById('contactForm');

@@ -238,38 +238,63 @@
         const apiUrl = `https://script.google.com/macros/s/AKfycbw5ULQrtZxvCkpSUa3wOH9Hsy7ULWqimBGtPnys04Rr7jPX2ny_I6B1KVv6Egh80YgV/exec?action=getOrder&id=${orderId}`;
 
         fetch(apiUrl)
-          .then((response) => response.json())
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
           .then((data) => {
-            if (data.result === 'success') {
+            console.log('Data received:', data); // Debug log
+
+            if (data.result === 'success' && data.order) {
               // Isi data ke dokumen
-              document.getElementById('tanggal').textContent = formatDate(data.order.tgl_keberangkatan);
-              document.getElementById('jam').textContent = data.order.jam_penjemputan;
-              document.getElementById('penyewa').textContent = data.order.penyewa;
-              document.getElementById('hp').textContent = data.order.no_hp;
-              document.getElementById('penjemputan').textContent = data.order.penjemputan;
-              document.getElementById('tujuan').textContent = data.order.tujuan;
-              document.getElementById('mobil').textContent = data.order.mobil;
+              const order = data.order;
+
+              document.getElementById('tanggal').textContent = formatDate(order.tgl_keberangkatan || '');
+              document.getElementById('jam').textContent = order.jam_penjemputan || '';
+              document.getElementById('penyewa').textContent = order.penyewa || '';
+              document.getElementById('hp').textContent = order.no_hp || '';
+              document.getElementById('penjemputan').textContent = order.penjemputan || '';
+              document.getElementById('tujuan').textContent = order.tujuan || '';
+              document.getElementById('mobil').textContent = order.mobil || '';
+              document.getElementById('driver').textContent = order.driver || '';
 
               // BB biasanya digunakan untuk bahan bakar/biaya bahan bakar
-              document.getElementById('bb').textContent = '';
+              document.getElementById('bb').textContent = order.bb || '';
             } else {
               document.body.innerHTML = '<div class="container mt-5"><div class="alert alert-danger">Data order tidak ditemukan</div></div>';
             }
           })
           .catch((error) => {
             console.error('Error:', error);
-            document.body.innerHTML = '<div class="container mt-5"><div class="alert alert-danger">Terjadi kesalahan saat mengambil data</div></div>';
+            document.body.innerHTML = `
+            <div class="container mt-5">
+              <div class="alert alert-danger">
+                <h4>Terjadi kesalahan saat mengambil data</h4>
+                <p>${error.message}</p>
+                <p>Detail error telah dicatat di console browser.</p>
+              </div>
+            </div>`;
           });
       });
 
       // Format tanggal ke format Indonesia
       function formatDate(dateString) {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('id-ID', {
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric',
-        });
+        if (!dateString) return '-';
+        try {
+          const date = new Date(dateString);
+          if (isNaN(date.getTime())) return dateString; // Return original if invalid date
+
+          return date.toLocaleDateString('id-ID', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+          });
+        } catch (e) {
+          console.error('Error formatting date:', e);
+          return dateString;
+        }
       }
     </script>
   </body>
