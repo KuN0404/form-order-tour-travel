@@ -221,81 +221,32 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        // Mendapatkan parameter dari URL
+      function getParam(name) {
         const urlParams = new URLSearchParams(window.location.search);
-        const orderId = urlParams.get('id');
-
-        if (!orderId) {
-          document.body.innerHTML = '<div class="container mt-5"><div class="alert alert-danger">ID Order tidak ditemukan</div></div>';
-          return;
-        }
-
-        // Set ID Order pada dokumen
-        document.getElementById('id_order').textContent = orderId;
-
-        // Fetch data dari Google Sheets
-        const apiUrl = `https://script.google.com/macros/s/AKfycbw5ULQrtZxvCkpSUa3wOH9Hsy7ULWqimBGtPnys04Rr7jPX2ny_I6B1KVv6Egh80YgV/exec?action=getOrder&id=${orderId}`;
-
-        fetch(apiUrl)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-            return response.json();
-          })
-          .then((data) => {
-            console.log('Data received:', data); // Debug log
-
-            if (data.result === 'success' && data.order) {
-              // Isi data ke dokumen
-              const order = data.order;
-
-              document.getElementById('tanggal').textContent = formatDate(order.tgl_keberangkatan || '');
-              document.getElementById('jam').textContent = order.jam_penjemputan || '';
-              document.getElementById('penyewa').textContent = order.penyewa || '';
-              document.getElementById('hp').textContent = order.no_hp || '';
-              document.getElementById('penjemputan').textContent = order.penjemputan || '';
-              document.getElementById('tujuan').textContent = order.tujuan || '';
-              document.getElementById('mobil').textContent = order.mobil || '';
-              document.getElementById('driver').textContent = order.driver || '';
-
-              // BB biasanya digunakan untuk bahan bakar/biaya bahan bakar
-              document.getElementById('bb').textContent = order.bb || '';
-            } else {
-              document.body.innerHTML = '<div class="container mt-5"><div class="alert alert-danger">Data order tidak ditemukan</div></div>';
-            }
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-            document.body.innerHTML = `
-            <div class="container mt-5">
-              <div class="alert alert-danger">
-                <h4>Terjadi kesalahan saat mengambil data</h4>
-                <p>${error.message}</p>
-                <p>Detail error telah dicatat di console browser.</p>
-              </div>
-            </div>`;
-          });
-      });
-
-      // Format tanggal ke format Indonesia
-      function formatDate(dateString) {
-        if (!dateString) return '-';
-        try {
-          const date = new Date(dateString);
-          if (isNaN(date.getTime())) return dateString; // Return original if invalid date
-
-          return date.toLocaleDateString('id-ID', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-          });
-        } catch (e) {
-          console.error('Error formatting date:', e);
-          return dateString;
-        }
+        return urlParams.get(name) || '-';
       }
+
+      function formatDate(dateString) {
+        if (!dateString || dateString === '-') return '-';
+        const date = new Date(dateString);
+        return date.toLocaleDateString('id-ID', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+        });
+      }
+
+      // Isi data dari URL
+      document.getElementById('id_order').textContent = getParam('id');
+      document.getElementById('tanggal').textContent = formatDate(getParam('tgl'));
+      document.getElementById('driver').textContent = getParam('driver');
+      document.getElementById('mobil').textContent = getParam('mobil');
+      document.getElementById('penyewa').textContent = getParam('penyewa');
+      document.getElementById('hp').textContent = getParam('hp');
+      document.getElementById('jam').textContent = getParam('jam');
+      document.getElementById('penjemputan').textContent = getParam('jemput');
+      document.getElementById('tujuan').textContent = getParam('tujuan');
+      document.getElementById('bb').textContent = getParam('bb');
     </script>
   </body>
 </html>
